@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+
+{% block title %}Home - GreenCart{% endblock %}
+
+{% block content %}
+<main>
+
+  <section class="hero-banner">
+    <div class="hero-left-content">
+      <div class="hero-text">
+        <p class="hero-label">Fresh groceries, delivered fast</p>
+        <h1>Freshness You Can Trust,<br> Savings You Will Love</h1>
+        <p class="hero-copy">Explore premium fruits, vegetables, dairy, bakery, and daily essentials at great prices. Shop now for fresh delivery to your door.</p>
+        <div class="hero-buttons">
+          <a href="{{ url_for('products_page') }}" class="shop-btn">Shop now</a>
+          <a href="#categories" class="explore-link">Browse categories</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="{{ url_for('static', filename='images/main_banner_bg.png') }}" alt="Fresh groceries" />
+      </div>
+    </div>
+  </section>
+
+  <section class="categories-section" id="categories">
+    <div class="section-heading">
+      <h2>Browse <span style="color:#1ab6ab;">Categories</span></h2>
+    </div>
+    <div class="categories-marquee-wrapper">
+      <div class="categories-marquee">
+        <!-- Set 1 -->
+        <div class="category-pill">
+          <a href="{{ url_for('organic_veggies') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/organic_vegitable_image.png') }}" alt="Organic Veggies"></span>
+            <p>Organic Veggies</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('fruits') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/fresh_fruits_image.png') }}" alt="Fresh Fruits"></span>
+            <p>Fresh Fruits</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('juices') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/bottles_image.png') }}" alt="Cold Drinks"></span>
+            <p>Cold Drinks</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('instant_food') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/maggi_image.png') }}" alt="Instant Food"></span>
+            <p>Instant Food</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('dairy') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/dairy_product_image.png') }}" alt="Dairy Products"></span>
+            <p>Dairy Products</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('bakery') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/bakery_image.png') }}" alt="Bakery & Breads"></span>
+            <p>Bakery & Breads</p>
+          </a>
+        </div>
+        <!-- Set 2 (duplicate for seamless loop) -->
+        <div class="category-pill">
+          <a href="{{ url_for('organic_veggies') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/organic_vegitable_image.png') }}" alt="Organic Veggies"></span>
+            <p>Organic Veggies</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('fruits') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/fresh_fruits_image.png') }}" alt="Fresh Fruits"></span>
+            <p>Fresh Fruits</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('juices') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/bottles_image.png') }}" alt="Cold Drinks"></span>
+            <p>Cold Drinks</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('instant_food') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/maggi_image.png') }}" alt="Instant Food"></span>
+            <p>Instant Food</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('dairy') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/dairy_product_image.png') }}" alt="Dairy Products"></span>
+            <p>Dairy Products</p>
+          </a>
+        </div>
+        <div class="category-pill">
+          <a href="{{ url_for('bakery') }}">
+            <span class="category-icon"><img src="{{ url_for('static', filename='images/bakery_image.png') }}" alt="Bakery & Breads"></span>
+            <p>Bakery & Breads</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST SELLERS -->
+  <section class="best-sellers-section">
+    <h2>Best Sellers</h2>
+
+
+
+
+<div class="products-container">
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/potato_image_1.png') }}" alt="Potato">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Potato 500g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹35</span>
+<span class="old-price">₹40</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="potato-500g"
+data-name="Potato 500g"
+data-price="35"
+data-image="{{ url_for('static', filename='images/potato_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/tomato_image.png') }}" alt="Tomato">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Tomato 1 kg</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹28</span>
+<span class="old-price">₹30</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="tomato-1kg"
+data-name="Tomato 1 kg"
+data-price="28" 
+data-image="{{ url_for('static', filename='images/tomato_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/carrot_image.png') }}" alt="Carrot">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Carrot 500g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹44</span>
+<span class="old-price">₹50</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="carrot-500g"
+data-name="Carrot 500g"
+data-price="44"
+data-image="{{ url_for('static', filename='images/carrot_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/spinach_image_1.png') }}" alt="Spinach">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Spinach 500g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹15</span>
+<span class="old-price">₹18</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="spinach-500g"
+data-name="Spinach 500g"
+data-price="15"
+data-image="{{ url_for('static', filename='images/spinach_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/onion_image_1.png') }}" alt="Onion">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Onion 500g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹45</span>
+<span class="old-price">₹50</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="onion-500g"
+data-name="Onion 500g"
+data-price="45"
+data-image="{{ url_for('static', filename='images/onion_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+
+
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='images/tomato_image.png') }}" alt="Tomato">
+        <div class="product-details">
+          <span class="product-category">Vegetables</span>
+          <h3 class="product-name">Tomato 1 kg</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="far fa-star"></i><span class="rating-count">(4)</span>
+          </div>
+          <div class="product-price">
+            <span class="current-price">$28</span>
+            <span class="old-price">$30</span>
+          </div>
+          <button class="add-to-cart-btn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='images/carrot_image.png') }}" alt="Carrot">
+        <div class="product-details">
+          <span class="product-category">Vegetables</span>
+          <h3 class="product-name">Carrot 500g</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="far fa-star"></i><span class="rating-count">(4)</span>
+          </div>
+          <div class="product-price">
+            <span class="current-price">$44</span>
+            <span class="old-price">$50</span>
+          </div>
+          <button class="add-to-cart-btn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='images/spinach_image_1.png') }}" alt="Spinach">
+        <div class="product-details">
+          <span class="product-category">Vegetables</span>
+          <h3 class="product-name">Spinach 500g</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="far fa-star"></i><span class="rating-count">(4)</span>
+          </div>
+          <div class="product-price">
+            <span class="current-price">$15</span>
+            <span class="old-price">$18</span>
+          </div>
+          <button class="add-to-cart-btn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='images/onion_image_1.png') }}" alt="Onion">
+        <div class="product-details">
+          <span class="product-category">Vegetables</span>
+          <h3 class="product-name">Onion 500g</h3>
+          <div class="product-rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="far fa-star"></i><span class="rating-count">(4)</span>
+          </div>
+          <div class="product-price">
+            <span class="current-price">$45</span>
+            <span class="old-price">$50</span>
+          </div>
+          <button class="add-to-cart-btn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-us-section">
+    <div class="why-us-content">
+         <div class="why-us-image">
+        <img src="{{ url_for('static', filename='images/bottom_banner_image_sm.png') }}" alt="Happy delivery woman">
+      </div>
+      <div class="why-us-text">
+        <h2>Why We Are the Best?</h2>
+        <ul>
+          <li>
+            <i class="fas fa-shipping-fast"></i>
+            <div>
+              <h3>Fastest Delivery</h3>
+              <p>Groceries delivered in under 30 minutes.</p>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-leaf"></i>
+            <div>
+              <h3>Freshness Guaranteed</h3>
+              <p>Fresh produce straight from the source.</p>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-tags"></i>
+            <div>
+              <h3>Affordable Prices</h3>
+              <p>Quality groceries at unbeatable prices.</p>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-heart"></i>
+            <div>
+              <h3>Trusted by Thousands</h3>
+              <p>Loved by 10,000+ happy customers.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="delivery-badge">
+      <i class="fas fa-truck"></i>
+      <span>Fast Delivery <br> In 30 Min</span>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <h2>Never Miss a Deal!</h2>
+    <p>Subscribe to get the latest offers, new arrivals, and exclusive discounts</p>
+    <div class="subscribe-form">
+      <input type="email" placeholder="Enter your email id">
+      <button class="subscribe-btn">Subscribe</button>
+    </div>
+  </section>
+
+</main>
+{% endblock %}
+
+</body>
+</html>

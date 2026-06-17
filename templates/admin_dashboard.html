@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - GreenCart{% endblock %}
+
+{% block content %}
+<section class="admin-wrapper">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <span class="admin-brand-icon">🛒</span>
+      <span>GreenCart<br><small>Admin Panel</small></span>
+    </div>
+    <nav class="admin-nav">
+      <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-item active">
+        <i class="fas fa-chart-pie"></i> Dashboard
+      </a>
+      <a href="{{ url_for('admin_users') }}" class="admin-nav-item">
+        <i class="fas fa-users"></i> Users
+      </a>
+      <a href="{{ url_for('admin_orders') }}" class="admin-nav-item">
+        <i class="fas fa-box"></i> Orders
+      </a>
+      <a href="{{ url_for('index') }}" class="admin-nav-item">
+        <i class="fas fa-store"></i> View Store
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="admin-main">
+
+    <!-- Top bar -->
+    <header class="admin-topbar">
+      <div class="admin-topbar-title">
+        <h1><i class="fas fa-chart-pie"></i> Dashboard Overview</h1>
+        <p>Welcome back, Admin! Here's what's happening today.</p>
+      </div>
+      <div class="admin-topbar-badge">
+        <span class="admin-live-dot"></span> Live
+      </div>
+    </header>
+
+    <!-- Stat Cards -->
+    <div class="admin-stat-grid">
+      <div class="admin-stat-card stat-blue">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-info">
+          <h2>{{ users|length }}</h2>
+          <p>Total Users</p>
+        </div>
+        <div class="stat-trend">+12%</div>
+      </div>
+      <div class="admin-stat-card stat-green">
+        <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div class="stat-info">
+          <h2>{{ orders|length }}</h2>
+          <p>Total Orders</p>
+        </div>
+        <div class="stat-trend">+8%</div>
+      </div>
+      <div class="admin-stat-card stat-teal">
+        <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+        <div class="stat-info">
+          <h2>₹{{ '{:,.0f}'.format(total_revenue) }}</h2>
+          <p>Total Revenue</p>
+        </div>
+        <div class="stat-trend">+5%</div>
+      </div>
+      <div class="admin-stat-card stat-orange">
+        <div class="stat-icon"><i class="fas fa-star"></i></div>
+        <div class="stat-info">
+          <h2>4.8</h2>
+          <p>Avg. Rating</p>
+        </div>
+        <div class="stat-trend">+0.2</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="admin-section-title">Quick Actions</div>
+    <div class="admin-quick-actions">
+      <a href="{{ url_for('admin_users') }}" class="admin-action-btn btn-users">
+        <i class="fas fa-users"></i>
+        <span>Manage Users</span>
+        <small>View &amp; manage all registered users</small>
+      </a>
+      <a href="{{ url_for('admin_orders') }}" class="admin-action-btn btn-orders">
+        <i class="fas fa-clipboard-list"></i>
+        <span>View Orders</span>
+        <small>Browse all customer orders</small>
+      </a>
+      <a href="{{ url_for('products_page') }}" class="admin-action-btn btn-products">
+        <i class="fas fa-store"></i>
+        <span>View Products</span>
+        <small>Browse the product catalog</small>
+      </a>
+    </div>
+
+    <!-- Recent Orders Preview -->
+    <div class="admin-section-title">Recent Orders</div>
+    <div class="admin-card">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders[:5] %}
+          <tr>
+            <td><span class="order-id">#{{ order.id }}</span></td>
+            <td>{{ order.user.full_name or order.user.email }}</td>
+            <td>{{ order.order_date.strftime('%d %b %Y') }}</td>
+            <td class="amount-cell">₹{{ '{:,.2f}'.format(order.total_amount) }}</td>
+            <td><span class="status-badge status-{{ order.order_status | lower }}">{{ order.order_status }}</span></td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="empty-row">No orders yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if orders|length > 5 %}
+      <div class="admin-table-footer">
+        <a href="{{ url_for('admin_orders') }}" class="view-all-link">View all {{ orders|length }} orders →</a>
+      </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}Instant Food - GreenCart{% endblock %}
+{% block content %}
+<section class="product-section">
+<h2 class="category-title">INSTANT FOOD</h2>
+<div class="product-grid">
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/maggi_image.png') }}" alt="Maggi Noodles">
+<div class="product-details">
+<span class="product-category">Instant</span>
+<h3 class="product-name">Maggi Noodles 280g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹50</span>
+<span class="old-price">₹55</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="maggi-noodles-280g"
+data-name="Maggi Noodles 280g"
+data-price="50"
+data-image="{{ url_for('static', filename='images/maggi_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/yippee_image.png') }}" alt="yippee Noodles">
+<div class="product-details">
+<span class="product-category">Instant</span>
+<h3 class="product-name">Yippee Noodles 280g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹50</span>
+<span class="old-price">₹55</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="yippee-noodles-280g"
+data-name="yippee Noodles 280g"
+data-price="50"
+data-image="{{ url_for('static', filename='images/yippee_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/pasta_image.png') }}" alt="pasta">
+<div class="product-details">
+<span class="product-category">Instant</span>
+<h3 class="product-name">Pasta 280g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹50</span>
+<span class="old-price">₹55</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="pasta 280g"
+data-name="pasta 280g"
+data-price="50"
+data-image="{{ url_for('static', filename='images/pasta_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/knorr_soup_image.png') }}" alt="Knorr Cup Soup">
+<div class="product-details">
+<span class="product-category">Instant</span>
+<h3 class="product-name">Knorr Cup Soup 70g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">$30</span>
+<span class="old-price">$35</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="knorr-soup-70g"
+data-name="Knorr Cup Soup 70g"
+data-price="30"
+data-image="{{ url_for('static', filename='images/knorr_soup_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/uppma_image.png') }}" alt="uppma">
+<div class="product-details">
+<span class="product-category">Instant</span>
+<h3 class="product-name">Instant Uppma 300g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">$70</span>
+<span class="old-price">$80</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="uppma-sauce-500g"
+data-name="Instant Uppma 300g"
+data-price="70"
+data-image="{{ url_for('static', filename='images/uppma_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+</div>
+</section>
+<script>
+function updateCartBadge() {
+const badge = document.getElementById("cart-count");
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+if (badge) badge.textContent = cart.length;
+}
+document.addEventListener("DOMContentLoaded", () => {
+updateCartBadge();
+const buttons = document.querySelectorAll(".add-to-cart-btn");
+buttons.forEach(btn => {
+btn.addEventListener("click", () => {
+const product = {
+id: btn.dataset.id,
+name: btn.dataset.name,
+price: parseFloat(btn.dataset.price),
+image: btn.dataset.image,
+quantity: 1
+};
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const existing = cart.find(item => item.id === product.id);
+if (existing) {
+existing.quantity++;
+} else {
+cart.push(product);
+}
+localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBadge();
+alert(`${product.name} added to cart`);
+});
+});
+});
+</script>
+{% endblock %}

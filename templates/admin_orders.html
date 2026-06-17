@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Orders - GreenCart{% endblock %}
+
+{% block content %}
+<section class="admin-wrapper">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-brand">
+      <span class="admin-brand-icon">🛒</span>
+      <span>GreenCart<br><small>Admin Panel</small></span>
+    </div>
+    <nav class="admin-nav">
+      <a href="{{ url_for('admin_dashboard') }}" class="admin-nav-item">
+        <i class="fas fa-chart-pie"></i> Dashboard
+      </a>
+      <a href="{{ url_for('admin_users') }}" class="admin-nav-item">
+        <i class="fas fa-users"></i> Users
+      </a>
+      <a href="{{ url_for('admin_orders') }}" class="admin-nav-item active">
+        <i class="fas fa-box"></i> Orders
+      </a>
+      <a href="{{ url_for('index') }}" class="admin-nav-item">
+        <i class="fas fa-store"></i> View Store
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="admin-main">
+
+    <header class="admin-topbar">
+      <div class="admin-topbar-title">
+        <h1><i class="fas fa-box"></i> Order History</h1>
+        <p>All customer orders placed on GreenCart.</p>
+      </div>
+      <div class="admin-count-badge">
+        {{ orders|length }} Total Orders
+      </div>
+    </header>
+
+    <div class="admin-card">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+          <tr>
+            <td><span class="order-id">#{{ order.id }}</span></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">{{ (order.user.full_name or order.user.email)[0].upper() }}</div>
+                {{ order.user.full_name or order.user.email }}
+              </div>
+            </td>
+            <td>{{ order.order_date.strftime('%d %b %Y, %I:%M %p') }}</td>
+            <td class="amount-cell">₹{{ '{:,.2f}'.format(order.total_amount) }}</td>
+            <td><span class="status-badge status-{{ order.order_status | lower }}">{{ order.order_status }}</span></td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="empty-row">No orders found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

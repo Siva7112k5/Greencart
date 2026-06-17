@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}All Products - GreenMart{% endblock %}
+
+{% block content %}
+<main>
+  <section class="all-products-section" id="vegetables">
+    <h2>ALL PRODUCTS</h2>
+    <div class="products-grid">
+      {% for product in products %}
+      <div class="product-card">
+        <img src="{{ url_for('static', filename='images/' ~ product.img) }}" alt="{{ product.alt }}">
+        <div class="product-details">
+          <span class="product-category">{{ product.cat }}</span>
+          <h3 class="product-name">{{ product.name }}</h3>
+          <div class="product-price">
+            <span class="current-price">₹{{ product.price }}</span>
+            <span class="old-price">₹{{ product.old }}</span>
+          </div>
+          <button class="add-to-cart-btn"
+            data-id="{{ product.id }}"
+            data-name="{{ product.name }}"
+            data-price="{{ product.price }}"
+            data-image="{{ url_for('static', filename='images/' ~ product.img) }}">
+            <i class="fas fa-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+
+<!-- 📜 Add-to-Cart Script -->
+<script>
+function updateCartBadge() {
+  const badge = document.getElementById("cart-count");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (badge) badge.textContent = cart.length;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartBadge();
+
+  const buttons = document.querySelectorAll(".add-to-cart-btn");
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const product = {
+        id: btn.dataset.id,
+        name: btn.dataset.name,
+        price: parseFloat(btn.dataset.price),
+        image: btn.dataset.image,
+        quantity: 1
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find(item => item.id === product.id);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push(product);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartBadge();
+      alert(`${product.name} added to cart`);
+    });
+  });
+});
+</script>
+{% endblock %}

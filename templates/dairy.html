@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}Dairy Products - GreenCart{% endblock %}
+{% block content %}
+<section class="product-section">
+<h2 class="category-title">DAIRY PRODUCTS</h2>
+<div class="product-grid">
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/amul_milk_image.png') }}" alt="Amul Milk">
+<div class="product-details">
+<span class="product-category">Dairy</span>
+<h3 class="product-name">Amul Milk 1L</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹55</span>
+<span class="old-price">₹60</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="amul-milk-1l"
+data-name="Amul Milk 1L"
+data-price="55"
+data-image="{{ url_for('static', filename='images/amul_milk_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/paneer_image.png') }}" alt="Paneer">
+<div class="product-details">
+<span class="product-category">Dairy</span>
+<h3 class="product-name">Paneer 200g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹85</span>
+<span class="old-price">₹90</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="paneer-200g"
+data-name="Paneer 200g"
+data-price="85"
+data-image="{{ url_for('static', filename='images/paneer_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/eggs_image.png') }}" alt="Eggs">
+<div class="product-details">
+<span class="product-category">Dairy</span>
+<h3 class="product-name">Eggs 12 pcs</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹85</span>
+<span class="old-price">₹90</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="eggs-12pcs"
+data-name="Eggs 12 pcs"
+data-price="85"
+data-image="{{ url_for('static', filename='images/eggs_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/cheese_image.png') }}" alt="Cheese">
+<div class="product-details">
+<span class="product-category">Dairy</span>
+<h3 class="product-name">Cheese 200g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹130</span>
+<span class="old-price">₹140</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="cheese-200g"
+data-name="Cheese 200g"
+data-price="130"
+data-image="{{ url_for('static', filename='images/cheese_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/yogurt_image_1.png') }}" alt="Cheese">
+<div class="product-details">
+<span class="product-category">Dairy</span>
+<h3 class="product-name">Cheese 200g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹130</span>
+<span class="old-price">₹140</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="cheese-200g"
+data-name="Cheese 200g"
+data-price="130"
+data-image="{{ url_for('static', filename='images/yogurt_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+</div>
+</section>
+<script>
+function updateCartBadge() {
+const badge = document.getElementById("cart-count");
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+if (badge) badge.textContent = cart.length;
+}
+document.addEventListener("DOMContentLoaded", () => {
+updateCartBadge();
+const buttons = document.querySelectorAll(".add-to-cart-btn");
+buttons.forEach(btn => {
+btn.addEventListener("click", () => {
+const product = {
+id: btn.dataset.id,
+name: btn.dataset.name,
+price: parseFloat(btn.dataset.price),
+image: btn.dataset.image,
+quantity: 1
+};
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const existing = cart.find(item => item.id === product.id);
+if (existing) {
+existing.quantity++;
+} else {
+cart.push(product);
+}
+localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBadge();
+alert(`${product.name} added to cart`);
+});
+});
+});
+</script>
+{% endblock %}

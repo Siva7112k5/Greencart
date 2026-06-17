@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - GreenCart</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <main>
+        <section class="register-section">
+            <div class="register-container">
+                <h2>Create Your Account</h2>
+                
+                {# 🚨 Display Flash Messages here (required for success/error msgs) #}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+
+                {# CRITICAL FIX: Added method="POST" and action="{{ url_for('register') }}" #}
+                <form method="POST" action="{{ url_for('register') }}">
+                    <div class="input-group">
+                        <label for="name">Full Name</label>
+                        {# CRITICAL FIX: Added name="name" #}
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        {# CRITICAL FIX: Added name="email" #}
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        {# CRITICAL FIX: Added name="password" #}
+                        <input type="password" id="password" name="password" placeholder="Create a password" required>
+                    </div>
+                    <button type="submit" class="register-btn">Create Account</button>
+                    <p class="login-link">Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+                </form>
+            </div>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    {# Removed unnecessary JS to initialize the form #}
+</body>
+</html>

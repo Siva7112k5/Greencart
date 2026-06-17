@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+<style>
+    .confirmation-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+    .confirmation-container h1 {
+        color: #4CAF50;
+        margin-bottom: 20px;
+    }
+    .confirmation-details {
+        text-align: left;
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #eee;
+        background-color: #fff;
+        border-radius: 4px;
+    }
+    .confirmation-details p {
+        margin: 8px 0;
+        font-size: 1.1em;
+    }
+    .confirmation-details strong {
+        display: inline-block;
+        width: 150px;
+        color: #333;
+    }
+    .back-btn {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    .back-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="confirmation-container">
+    <h1>🎉 Order Placed Successfully!</h1>
+    <p>Thank you for your purchase. Your order details are below.</p>
+    
+    <div class="confirmation-details">
+        <p><strong>Order Number:</strong> {{ order.id }}</p>
+        <p><strong>Order Date:</strong> {{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p><strong>Total Amount:</strong> ₹{{ "{:,.2f}".format(order.total_amount) }}</p>
+        <p><strong>Payment Method:</strong> {{ order.payment_method.upper() }}</p>
+        <p><strong>Status:</strong> {{ order.order_status }}</p>
+    </div>
+
+    <p style="margin-top: 20px; font-style: italic;">We have received your order and are currently processing it.</p>
+
+    <a href="{{ url_for('index') }}" class="back-btn">Continue Shopping</a>
+</div>
+{% endblock %}

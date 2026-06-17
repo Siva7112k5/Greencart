@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Bakery & Breads - GreenCart{% endblock %}
+{% block content %}
+<section class="product-section">
+<h2 class="category-title">BAKERY & BREADS</h2>
+<div class="product-grid">
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/darkfandasy_image.png') }}" alt="Dark Fantasy">
+<div class="product-details">
+<span class="product-category">Bakery</span>
+<h3 class="product-name">Dark Fantasy</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹75</span>
+<span class="old-price">₹80</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="Dark Fantasy"
+data-name="Dark Fantasy"
+data-price="75"
+data-image="{{ url_for('static', filename='images/darkfandasy_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/butter_croissant_image.png') }}" alt="Butter Croissant">
+<div class="product-details">
+<span class="product-category">Bakery</span>
+<h3 class="product-name">Butter Croissant 100g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹45</span>
+<span class="old-price">₹50</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="butter-croissant-100g"
+data-name="Butter Croissant 100g"
+data-price="45"
+data-image="{{ url_for('static', filename='images/butter_croissant_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/cupcake_image.png') }}" alt="cupcake">
+<div class="product-details">
+<span class="product-category">Bakery</span>
+<h3 class="product-name">Cup Cake</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹35</span>
+<span class="old-price">₹40</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="cupcake"
+data-name="cupcake"
+data-price="35"
+data-image="{{ url_for('static', filename='images/cupcake_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/brown_bread_image.png') }}" alt="Brown Bread">
+<div class="product-details">
+<span class="product-category">Bakery</span>
+<h3 class="product-name">Brown Bread 400g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹35</span>
+<span class="old-price">₹40</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="brown-bread-400g"
+data-name="Brown Bread 400g"
+data-price="35"
+data-image="{{ url_for('static', filename='images/brown_bread_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/bakery_image.png') }}" alt="White Bread">
+<div class="product-details">
+<span class="product-category">Bakery</span>
+<h3 class="product-name">White Bread 400g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹40</span>
+<span class="old-price">₹50</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="white-bread-400g"
+data-name="White Bread 400g"
+data-price="30"
+data-image="{{ url_for('static', filename='images/bakery_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+
+</div>
+</section>
+<script>
+function updateCartBadge() {
+const badge = document.getElementById("cart-count");
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+if (badge) badge.textContent = cart.length;
+}
+document.addEventListener("DOMContentLoaded", () => {
+updateCartBadge();
+const buttons = document.querySelectorAll(".add-to-cart-btn");
+buttons.forEach(btn => {
+btn.addEventListener("click", () => {
+const product = {
+id: btn.dataset.id,
+name: btn.dataset.name,
+price: parseFloat(btn.dataset.price),
+image: btn.dataset.image,
+quantity: 1
+};
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const existing = cart.find(item => item.id === product.id);
+if (existing) {
+existing.quantity++;
+} else {
+cart.push(product);
+}
+localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBadge();
+alert(`${product.name} added to cart`);
+});
+});
+});
+</script>
+{% endblock %}

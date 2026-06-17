@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}Cold Drinks - GreenCart{% endblock %}
+{% block content %}
+<section class="product-section">
+<h2 class="category-title">COLD DRINKS</h2>
+<div class="product-grid">
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/coca_cola_image.png') }}" alt="Coca-Cola">
+<div class="product-details">
+<span class="product-category">Drinks</span>
+<h3 class="product-name">Coca-Cola 1.5L</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹75</span>
+<span class="old-price">₹80</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="coca-cola-1.5l"
+data-name="Coca-Cola 1.5L"
+data-price="75"
+data-image="{{ url_for('static', filename='images/coca_cola_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/sprite_image_1.png') }}" alt="Sprite">
+<div class="product-details">
+<span class="product-category">Drinks</span>
+<h3 class="product-name">Sprite 1.5L</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹60</span>
+<span class="old-price">₹75</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="sprite-1.5l"
+data-name="Sprite 1.5L"
+data-price="60"
+data-image="{{ url_for('static', filename='images/sprite_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/seven_up_image_1.png') }}" alt="7 Up">
+<div class="product-details">
+<span class="product-category">Drinks</span>
+<h3 class="product-name">7 Up 1.5L</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹70</span>
+<span class="old-price">₹76</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="seven-up-1.5l"
+data-name="7 Up 1.5L"
+data-price="70"
+data-image="{{ url_for('static', filename='images/seven_up_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/fanta_image_1.png') }}" alt="Fanta">
+<div class="product-details">
+<span class="product-category">Drinks</span>
+<h3 class="product-name">Fanta 1.5L</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹65</span>
+<span class="old-price">₹70</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="fanta-1.5l"
+data-name="Fanta 1.5L"
+data-price="65"
+data-image="{{ url_for('static', filename='images/fanta_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/fruity_image.png') }}" alt="Fruity Juice">
+<div class="product-details">
+<span class="product-category">Drinks</span>
+<h3 class="product-name">Fruity Juice 1L</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹50</span>
+<span class="old-price">₹55</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="fruity-juice-1l"
+data-name="Fruity Juice 1L"
+data-price="50"
+data-image="{{ url_for('static', filename='images/fruity_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+</div>
+</section>
+<script>
+function updateCartBadge() {
+const badge = document.getElementById("cart-count");
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+if (badge) badge.textContent = cart.length;
+}
+document.addEventListener("DOMContentLoaded", () => {
+updateCartBadge();
+const buttons = document.querySelectorAll(".add-to-cart-btn");
+buttons.forEach(btn => {
+btn.addEventListener("click", () => {
+const product = {
+id: btn.dataset.id,
+name: btn.dataset.name,
+price: parseFloat(btn.dataset.price),
+image: btn.dataset.image,
+quantity: 1
+};
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const existing = cart.find(item => item.id === product.id);
+if (existing) {
+existing.quantity++;
+} else {
+cart.push(product);
+}
+localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBadge();
+alert(`${product.name} added to cart`);
+});
+});
+});
+</script>
+{% endblock %}

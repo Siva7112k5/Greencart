@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Shopping Cart - GreenMart{% endblock %}
+
+{% block content %}
+<main class="cart-container">
+    <section class="cart-details">
+        <div class="cart-header">
+            <h1 class="cart-title">Shopping Cart</h1>
+            <span id="cart-item-count">0 Items</span>
+        </div>
+        <div class="cart-items-labels">
+            <span class="product-label">Product Details</span>
+            <span class="subtotal-label">Subtotal</span>
+            <span class="action-label">Action</span>
+        </div>
+        <a href="{{ url_for('index') }}" class="continue-shopping">← Continue Shopping</a>
+
+        <div id="cart-items-list" class="cart-items">
+            </div>
+    </section>
+
+    <section class="order-summary">
+        <h2 class="summary-title">Order Summary</h2>
+        <div class="summary-details">
+            <div class="summary-line">
+                <p>DELIVERY ADDRESS</p>
+                <a href="#" class="change-link">Change</a>
+            </div>
+            <p id="delivery-address" class="address-text">No address found</p>
+
+            <div class="summary-line">
+                <p>PAYMENT METHOD</p>
+            </div>
+            <div class="payment-method">
+                <select id="payment-select">
+                    <option value="cod">Cash On Delivery</option>
+                    <option value="card">Credit Card</option>
+                </select>
+            </div>
+
+            <hr class="summary-divider">
+
+            <div class="summary-line">
+                <p>Price</p>
+                <span id="price-total">₹0</span>
+            </div>
+            <div class="summary-line">
+                <p>Shipping Fee</p>
+                <span id="shipping-fee" class="free-text">Free</span>
+            </div>
+            <div class="summary-line">
+                <p>Tax (2%)</p>
+                <span id="tax-amount">₹0</span>
+            </div>
+            <div class="summary-line total-amount">
+                <p>Total Amount:</p>
+                <span id="total-amount">₹0</span>
+            </div>
+
+            <button class="place-order-btn">Place Order</button>
+        </div>
+    </section>
+</main>
+<script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+
+{% endblock %}

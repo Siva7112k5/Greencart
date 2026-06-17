@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}Organic Veggies - GreenCart{% endblock %}
+
+{% block content %}
+<section class="category-section">
+<h2 class="category-title">ORGANIC VEGGIES</h2>
+<div class="product-grid">
+
+<div class="products-container">
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/potato_image_1.png') }}" alt="Potato">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Potato 500g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹35</span>
+<span class="old-price">₹40</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="potato-500g"
+data-name="Potato 500g"
+data-price="35"
+data-image="{{ url_for('static', filename='images/potato_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/tomato_image.png') }}" alt="Tomato">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Tomato 1 kg</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹28</span>
+<span class="old-price">₹30</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="tomato-1kg"
+data-name="Tomato 1 kg"
+data-price="28" 
+data-image="{{ url_for('static', filename='images/tomato_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/carrot_image.png') }}" alt="Carrot">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Carrot 500g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹44</span>
+<span class="old-price">₹50</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="carrot-500g"
+data-name="Carrot 500g"
+data-price="44"
+data-image="{{ url_for('static', filename='images/carrot_image.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/spinach_image_1.png') }}" alt="Spinach">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Spinach 500g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹15</span>
+<span class="old-price">₹18</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="spinach-500g"
+data-name="Spinach 500g"
+data-price="15"
+data-image="{{ url_for('static', filename='images/spinach_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="{{ url_for('static', filename='images/onion_image_1.png') }}" alt="Onion">
+<div class="product-details">
+<span class="product-category">Vegetables</span>
+<h3 class="product-name">Onion 500g</h3>
+<div class="product-rating">
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="fas fa-star"></i><i class="fas fa-star"></i>
+<i class="far fa-star"></i><span class="rating-count">(4)</span>
+</div>
+<div class="product-price">
+<span class="current-price">₹45</span>
+<span class="old-price">₹50</span>
+</div>
+<button class="add-to-cart-btn"
+data-id="onion-500g"
+data-name="Onion 500g"
+data-price="45"
+data-image="{{ url_for('static', filename='images/onion_image_1.png') }}">
+<i class="fas fa-plus"></i> Add
+</button>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<script>
+function updateCartBadge() {
+const badge = document.getElementById("cart-count");
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+if (badge) badge.textContent = cart.length;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+updateCartBadge();
+
+const buttons = document.querySelectorAll(".add-to-cart-btn");
+buttons.forEach(btn => {
+btn.addEventListener("click", () => {
+const product = {
+id: btn.dataset.id,
+name: btn.dataset.name,
+price: parseFloat(btn.dataset.price),
+image: btn.dataset.image,
+quantity: 1
+};
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const existing = cart.find(item => item.id === product.id);
+if (existing) {
+existing.quantity++;
+} else {
+cart.push(product);
+}
+
+localStorage.setItem("cart", JSON.stringify(cart));
+updateCartBadge();
+alert(`${product.name} added to cart`);
+});
+});
+});
+</script>
+{% endblock %}

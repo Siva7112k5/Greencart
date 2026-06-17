@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GreenCart{% endblock %}</title>
+
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/favicon.svg') }}" alt="GreenCart Logo">
+            <span>reenCart</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}"><b>Home</b></a></li>
+            <li><a href="{{ url_for('products_page') }}">All Product</a></li>
+            {% if current_user.is_authenticated and current_user.is_admin %}
+                <li><a href="{{ url_for('admin_dashboard') }}"><b>Admin</b></a></li>
+            {% endif %}
+        </ul>
+
+        <form action="{{ url_for('search') }}" method="get" class="search-bar">
+            <input type="text" name="q" placeholder="Search products..." required>
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+
+        <div class="user-actions">
+            <a href="{{ url_for('cart') }}" class="cart-link">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count" class="cart-badge">0</span>
+            </a>
+            {% if current_user.is_authenticated %}
+                <span class="user-status-link">
+                    Welcome, {{ current_user.full_name or current_user.email }}
+                </span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+                <a href="{{ url_for('register') }}" class="signup-btn">Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div class="flash-messages-container" style="padding:10px 0; text-align:center;">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}"
+                     style="
+                                padding:10px;
+                                margin-bottom:5px;
+                                border-radius:4px;
+                                color:#fff;
+                                background-color: {{ '#f44336' if category=='error' else '#4ccba3' }}
+ 
+                                 ">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+
+{% block content %}{% endblock %}
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-column footer-about">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/favicon.svg') }}" alt="GreenCart Logo">
+                <span>GreenCart</span>
+            </div>
+            <p>We deliver fresh groceries and snacks straight to your door. Trusted by thousands, we aim to make your shopping experience simple and affordable.</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('products_page') }}">All Product</a></li>
+                <li><a href="{{ url_for('index') }}">Best Sellers</a></li>
+                <li><a href="{{ url_for('index') }}">Offers & Deals</a></li>
+                <li><a href="{{ url_for('index') }}">Contact Us</a></li>
+                <li><a href="{{ url_for('index') }}">FAQs</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Need help?</h3>
+            <ul>
+                <li><a href="#">Delivery Information</a></li>
+                <li><a href="#">Return & Refund Policy</a></li>
+                <li><a href="#">Payment Methods</a></li>
+                <li><a href="#">Track your Order</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h3>Follow Us</h3>
+            <ul>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">YouTube</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright 2025 © GreenCart All Right Reserved.</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const badge = document.getElementById("cart-count");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (badge) badge.textContent = cart.length;
+});
+</script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
